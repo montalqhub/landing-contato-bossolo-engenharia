@@ -6,7 +6,7 @@
   <title>Fale Conosco</title>
 
   <!-- ============================================================
-    👉 SUBSTITUA GTM-XXXXXXX pelo seu ID do Google Tag Manager
+    👉 SUBSTITUA GTM-MPG2WL99 pelo seu ID do Google Tag Manager
   ============================================================ -->
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -303,38 +303,41 @@
     };
     var AUTOHIDE = Boolean(0);
   </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
-  <!-- ============================================================
-    🎯 RASTREAMENTO DE CONVERSÃO
-    Observa quando o Brevo exibe a mensagem de sucesso e
-    dispara um evento "form_submit" no dataLayer do GTM.
-    No GTM: crie um acionador de Evento Personalizado com
-    o nome "brevo_form_submit" e use-o na tag de conversão.
-  ============================================================ -->
   <script>
-    (function () {
-      var successBox = document.getElementById('success-message');
-      if (!successBox) return;
+    (function() {
+      window.dataLayer = window.dataLayer || [];
+      var fired = false;
 
-      var observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (m) {
-          if (m.type === 'attributes' && m.attributeName === 'style') {
-            var display = window.getComputedStyle(successBox).display;
-            if (display !== 'none' && display !== '') {
-              // Dispara evento no dataLayer do GTM
-              window.dataLayer = window.dataLayer || [];
-              window.dataLayer.push({
-                event: 'brevo_form_submit',
-                form_name: 'fale_conosco'
-              });
-              observer.disconnect(); // dispara só uma vez
-            }
+      window.addEventListener('load', function() {
+        var sibContainer = document.getElementById('sib-form-container');
+        if (!sibContainer) return;
+
+        var observer = new MutationObserver(function() {
+          if (fired) return;
+          var successMsg = document.getElementById('success-message');
+          if (!successMsg) return;
+          var isVisible = successMsg.offsetHeight > 0 &&
+                          window.getComputedStyle(successMsg).display !== 'none' &&
+                          window.getComputedStyle(successMsg).visibility !== 'hidden';
+          if (isVisible) {
+            fired = true;
+            observer.disconnect();
+            window.dataLayer.push({
+              event: 'brevo_form_submit',
+              form_name: 'fale_conosco'
+            });
           }
         });
-      });
 
-      observer.observe(successBox, { attributes: true, attributeFilter: ['style'] });
+        observer.observe(sibContainer, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['style', 'class']
+        });
+      });
     })();
   </script>
 
