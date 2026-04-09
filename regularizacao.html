@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
+  <link rel="icon" type="image/png" href="logotipo.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Regularização de Imóvel – Bossolo Engenharia</title>
 
@@ -318,17 +319,70 @@
       .stat:last-child { border-bottom: none; }
       .process-grid { grid-template-columns: 1fr; }
     }
-  </style>
+  
+    /* NAV FULL */
+    nav {
+      background: var(--dark);
+      padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 200;
+      height: 68px;
+      border-bottom: 1px solid rgba(200,121,65,0.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 38px; width: auto; }
+    .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: #f5f0eb; line-height: 1.1; }
+    .nav-logo-text span { color: var(--gold-light, #e8a96a); font-style: italic; }
+    .nav-logo-sub { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted, #7a6f63); display: block; }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a { color: #c8bfb5; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; padding: 8px 14px; border-radius: 3px; transition: color 0.2s, background 0.2s; white-space: nowrap; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light, #e8a96a); background: rgba(200,121,65,0.08); }
+    .nav-cta { background: var(--gold, #c87941) !important; color: #fff !important; font-weight: 600 !important; padding: 10px 22px !important; border-radius: 4px !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: #a8622e !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: #c8bfb5; border-radius: 2px; }
+    .nav-mobile { display: none; position: fixed; inset: 68px 0 0 0; background: var(--dark); z-index: 199; flex-direction: column; padding: 24px; gap: 0; border-top: 1px solid rgba(200,121,65,0.15); overflow-y: auto; }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { color: #c8bfb5; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .nav-mobile a.active, .nav-mobile a:hover { color: var(--gold-light, #e8a96a); }
+    .nav-mobile .nav-cta { margin-top: 16px; text-align: center; background: var(--gold, #c87941); border-radius: 4px; border-bottom: none; color: #fff !important; }
+    @media (max-width: 900px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
+</style>
 </head>
 <body>
 
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPG2WL99" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- NAV -->
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">Bossolo <span>Engenharia</span></div>
-  <a class="nav-cta" href="#contato">Fale Conosco</a>
+  <a href="index.html" class="nav-logo">
+    <img src="logotipo.png" alt="Bossolo Engenharia">
+    <div>
+      <div class="nav-logo-text">Bossolo <span>Engenharia</span></div>
+      <span class="nav-logo-sub">São José do Rio Preto</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="construcao.html">Construção</a></li>
+    <li><a href="regularizacao.html" class="active">Regularização</a></li>
+    <li><a href="financiamento.html">Financiamento</a></li>
+    <li><a href="projetos-bossolo.html">Projetos</a></li>
+    <li><a href="contato.html" class="nav-cta">Solicitar Orçamento</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Início</a>
+  <a href="construcao.html">Construção</a>
+  <a href="regularizacao.html" class="active">Regularização</a>
+  <a href="financiamento.html">Financiamento</a>
+  <a href="projetos-bossolo.html">Projetos</a>
+  <a href="contato.html" class="nav-cta">Solicitar Orçamento</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -595,6 +649,15 @@
       });
       observer.observe(sibContainer, { childList: true, subtree: true, attributes: true, attributeFilter: ['style','class'] });
     });
+  })();
+</script>
+
+
+<script>
+  (function(){
+    var h = document.getElementById('hamburger');
+    var m = document.getElementById('navMobile');
+    if(h && m) h.addEventListener('click', function(){ m.classList.toggle('open'); });
   })();
 </script>
 
