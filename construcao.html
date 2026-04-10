@@ -93,14 +93,11 @@
     .section-sub { font-size: 0.95rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
 
     /* GALERIA MASONRY */
-    .gallery { columns: 3; gap: 8px; }
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 8px;
-        }
-        
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
         .gallery-item {
             border-radius: 6px;
             overflow: hidden;
